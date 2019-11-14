@@ -40,6 +40,7 @@ public class StudentFragment extends Fragment {
     String sn = "", sa = "", sadd = "", gen = "";
     View view;
     List<DataSet> studentList = new ArrayList<>();
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_adduser, container, false);
@@ -60,9 +61,11 @@ public class StudentFragment extends Fragment {
                     return;
                 } else if (TextUtils.isEmpty(saddress.getText().toString())) {
                     saddress.setError("please enter address");
+
                     return;
                 } else if (TextUtils.isEmpty(sage.getText().toString())) {
                     sage.setError("please enter age");
+                    return;
                 } else {
                     sn = sname.getText().toString();
                     sadd = saddress.getText().toString();
@@ -73,9 +76,9 @@ public class StudentFragment extends Fragment {
                 if (selectid > 0) {
                     RadioButton radioButton = getView().findViewById(selectid);
                     gen = radioButton.getText().toString();
-                    Toast.makeText(getContext(), "Student added with name " + sn , Toast.LENGTH_SHORT).show();
-                    DataSet dataSet= new DataSet(sn,sadd,sa,gen);
-                    studentList=dataSet.getSlist();
+                    Toast.makeText(getContext(), "Student added with name " + sn, Toast.LENGTH_SHORT).show();
+                    DataSet dataSet = new DataSet(sn, sadd, sa, gen);
+                    studentList = dataSet.getSlist();
                     studentList.add(dataSet);
                     dataSet.setSlist(studentList);
                     sname.setText("");
