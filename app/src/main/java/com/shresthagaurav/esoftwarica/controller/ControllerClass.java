@@ -1,9 +1,9 @@
 package com.shresthagaurav.esoftwarica.controller;
 
-import com.shresthagaurav.esoftwarica.model.DataSet;
+import com.shresthagaurav.esoftwarica.model.UserData;
 
 public class ControllerClass {
-    public boolean CheckUser(DataSet sd) {
+    public boolean CheckUser(UserData sd) {
         if ((sd.getName().equals("gaurav")) && (sd.getPassword().equals("1234"))) {
             return true;
 
@@ -11,4 +11,5 @@ public class ControllerClass {
             return false;
         }
     }
+
 }

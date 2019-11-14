@@ -1,15 +1,33 @@
 package com.shresthagaurav.esoftwarica.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DataSet {
-    private String name;
-    private String password;
+
     private String stuname;
     private String stuaddress;
     private String stuage;
     private String stugender;
+    static List<DataSet> Slist=new ArrayList<>();
+
+    public static List<DataSet> getSlist() {
+        return Slist;
+    }
+
+    public static void setSlist(List<DataSet> slist) {
+        Slist = slist;
+    }
 
     public String getStugender() {
         return stugender;
+    }
+
+    public   DataSet(String stuname, String stuaddress, String stuage, String stugender) {
+        this.stuname = stuname;
+        this.stuaddress = stuaddress;
+        this.stuage = stuage;
+        this.stugender = stugender;
     }
 
     public void setStugender(String stugender) {
@@ -40,19 +58,5 @@ public class DataSet {
         this.stuage = stuage;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

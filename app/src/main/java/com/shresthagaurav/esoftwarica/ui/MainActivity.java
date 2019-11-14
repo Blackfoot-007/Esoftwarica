@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.shresthagaurav.esoftwarica.R;
 import com.shresthagaurav.esoftwarica.controller.ControllerClass;
 import com.shresthagaurav.esoftwarica.model.DataSet;
+import com.shresthagaurav.esoftwarica.model.UserData;
 
 public class MainActivity extends AppCompatActivity {
     Button btn_login;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataSet dataSet = new DataSet();
+                UserData dataSet = new UserData();
                 if (!TextUtils.isEmpty(log_name.getText().toString())) {
                     dataSet.setName(log_name.getText().toString());
                     if (!TextUtils.isEmpty(log_password.getText().toString())) {

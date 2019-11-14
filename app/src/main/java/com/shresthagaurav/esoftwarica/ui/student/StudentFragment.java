@@ -1,5 +1,7 @@
 package com.shresthagaurav.esoftwarica.ui.student;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,20 +17,32 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.shresthagaurav.esoftwarica.R;
+import com.shresthagaurav.esoftwarica.adapter.StudentListApt;
 import com.shresthagaurav.esoftwarica.model.DataSet;
+import com.shresthagaurav.esoftwarica.ui.MainWindow;
+import com.shresthagaurav.esoftwarica.ui.home.HomeFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentFragment extends Fragment {
     EditText sname, saddress, sage;
     Button btnAdd;
     RadioGroup genderRG;
-
+    String sn = "", sa = "", sadd = "", gen = "";
+    View view;
+    List<DataSet> studentList = new ArrayList<>();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_adduser, container, false);
+        view = inflater.inflate(R.layout.fragment_adduser, container, false);
         sname = view.findViewById(R.id.etASnmae);
         saddress = view.findViewById(R.id.etASaddress);
         sage = view.findViewById(R.id.etASage);
@@ -36,45 +50,46 @@ public class StudentFragment extends Fragment {
         genderRG = view.findViewById(R.id.rgGender);
         btnAdd = view.findViewById(R.id.btnadd);
         btnAdd.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-                DataSet dataSet = new DataSet();
-                String sn, sa, sadd, gen;
-                if (!TextUtils.isEmpty(sname.getText().toString())) {
-                    sn = sname.getText().toString();
-                    if (!TextUtils.isEmpty(saddress.getText().toString())) {
-                        sadd = saddress.getText().toString();
-                        if (!TextUtils.isEmpty(sage.getText().toString())) {
-                            sa = sage.getText().toString();
-                            try {
-                                int selectid = genderRG.getCheckedRadioButtonId();
-                                RadioButton radioButton = getView().findViewById(selectid);
-                                gen = radioButton.getText().toString();
-                                Toast.makeText(getContext(), "Welcome " +sn+sa+sadd+gen, Toast.LENGTH_SHORT).show();
-                                dataSet.setStuage(sn);
-                                dataSet.setStuaddress(sadd);
-                                dataSet.setStuage(sa);
-                                dataSet.setStugender(gen);
-                            } catch (Exception e) {
-                                Toast.makeText(getContext(), "Please select gender", Toast.LENGTH_SHORT).show();
 
-                            }
-                        } else {
-                            sage.setError("please enter age");
-                        }
-                    } else {
-                        sage.setError("please enter address");
-                    }
+
+                if (TextUtils.isEmpty(sname.getText().toString())) {
+                    sname.setError("please enter name");
+                    return;
+                } else if (TextUtils.isEmpty(saddress.getText().toString())) {
+                    saddress.setError("please enter address");
+                    return;
+                } else if (TextUtils.isEmpty(sage.getText().toString())) {
+                    sage.setError("please enter age");
                 } else {
-                    sage.setError("please enter name");
+                    sn = sname.getText().toString();
+                    sadd = saddress.getText().toString();
+                    sa = sage.getText().toString();
                 }
+
+                int selectid = genderRG.getCheckedRadioButtonId();
+                if (selectid > 0) {
+                    RadioButton radioButton = getView().findViewById(selectid);
+                    gen = radioButton.getText().toString();
+                    Toast.makeText(getContext(), "Welcome " + sn + sa + sadd + gen, Toast.LENGTH_SHORT).show();
+                    DataSet dataSet= new DataSet(sn,sadd,sa,gen);
+                    studentList=dataSet.getSlist();
+                    studentList.add(dataSet);
+                    dataSet.setSlist(studentList);
+                    sname.setText("");
+                    saddress.setText("");
+                    sage.setText("");
+                } else {
+                    Toast.makeText(getContext(), "Please select gender", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
         return view;
     }
+
+
 }
-
-//
-
-//}
