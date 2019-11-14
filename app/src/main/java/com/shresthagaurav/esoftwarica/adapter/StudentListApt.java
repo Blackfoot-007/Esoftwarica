@@ -33,7 +33,7 @@ public class StudentListApt extends RecyclerView.Adapter<StudentListApt.Studentv
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StudentListApt.Studentview holder, int position) {
+    public void onBindViewHolder(@NonNull StudentListApt.Studentview holder, final int position) {
 DataSet dataSet= dataSetList.get(position);
 if(dataSet.getStugender().equalsIgnoreCase("male")){
     holder.imgcard.setImageResource(R.drawable.ic_male_user);
@@ -44,6 +44,14 @@ holder.txname.setText(dataSet.getStuname());
 holder.txaddress.setText(dataSet.getStuaddress());
 holder.txage.setText(dataSet.getStuage());
 holder.txgender.setText(dataSet.getStugender());
+holder.btndel.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        dataSetList.remove(position);
+                notifyDataSetChanged();
+    }
+});
     }
 
     @Override

@@ -27,31 +27,21 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
         recyclerView = view.findViewById(R.id.RcView);
-        DataSet sd= new DataSet("Sita", "dhalko", "12", "female");
+        DataSet sd = new DataSet("Sita", "dhalko", "12", "female");
 
-        studentList=sd.getSlist();
-
-
-        if(studentList.isEmpty()){
-    studentList.add(sd);
-
-    studentList.add( new DataSet("Ram", "dhalko", "12", "male"));
-
-
-    sd.setSlist(studentList);
-
-       }
-
+        studentList = sd.getSlist();
+        if (studentList.isEmpty()) {
+            studentList.add(sd);
+            studentList.add(new DataSet("Ram", "dhalko", "12", "male"));
+            sd.setSlist(studentList);
+        }
 
         StudentListApt studentListApt = new StudentListApt(getActivity(), studentList);
         recyclerView.setAdapter(studentListApt);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         return view;
     }
-
 
 
 }

@@ -73,7 +73,7 @@ public class StudentFragment extends Fragment {
                 if (selectid > 0) {
                     RadioButton radioButton = getView().findViewById(selectid);
                     gen = radioButton.getText().toString();
-                    Toast.makeText(getContext(), "Welcome " + sn + sa + sadd + gen, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Student added with name " + sn , Toast.LENGTH_SHORT).show();
                     DataSet dataSet= new DataSet(sn,sadd,sa,gen);
                     studentList=dataSet.getSlist();
                     studentList.add(dataSet);
